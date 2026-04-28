@@ -10,7 +10,8 @@ pipeline {
         
         stage('Build & Test') {
             steps {
-                sh 'mvn clean package' // Compila y ejecuta la etapa UnitTest en Java
+                sh 'mvn clean package -DskipTests' // Compila y ejecuta la etapa UnitTest en Java
+                sh 'mvn test -Dgroups=UnitTest'
             }
         }
         
