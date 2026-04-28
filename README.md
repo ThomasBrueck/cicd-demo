@@ -9,8 +9,18 @@ Este proyecto implementa un Pipeline de Integración y Despliegue Continuo (CI/C
 5. **Deploy:** Esta etapa únicamente se despliega si las puertas de calidad anteriores validan la seguridad. Deshace instancias del proyecto anteriores y levanta el contendor aislando el puerto *8081* para proteger al anfitrión.
 6. **Limpieza e Infraestructura (`post { always }`):** Como medida integral, Jenkins retorna siempre los contenedores remanentes a un estado consistente limpiando las cachés, redes e instanciaciones atómicas olvidadas (`docker system prune -f`) y eliminando enteramente el directorio clonado post-build (`cleanWs()`). De esta manera se evita la saturación residual de la memoria local en iteraciones a largo plazo.
 
+<br>
+<br>
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Este mensaje es para probar la ejecucion del pipeline
+
+------------------------------------------------
+
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 # CICD-DEMO
