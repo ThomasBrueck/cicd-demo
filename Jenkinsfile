@@ -3,14 +3,14 @@ pipeline {
     agent any 
 
     stages {
-        stage('Checkout') {
+        stage('checkout') {
             steps {
                 // Clona el código fuente desde el repositorio configurado
                 checkout scm
             }
         }
 
-        stage('Build') {
+        stage('build') {
             steps {
                 // Compila la aplicación Java. 
                 // Nota: Usamos el comando "make build" que ya tienes en tu proyecto
@@ -20,14 +20,14 @@ pipeline {
             }
         }
 
-        stage('Docker Build') {
+        stage('docker_build') {
             steps {
                 // Construye la imagen Docker a partir de tu Dockerfile
                 sh 'docker build -t mi-app:latest .'
             }
         }
 
-        stage('Test') {
+        stage('test') {
             steps {
                 // Realiza las pruebas unitarias usando nuevamente la abstracción del Makefile
                 // para que use el entorno de contenedores automático.
