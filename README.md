@@ -12,7 +12,7 @@ Este proyecto implementa un Pipeline de Integración y Despliegue Continuo (CI/C
 <br>
 <br>
 
-Este mensaje es para probar la ejecucion del pipeline
+Este mensaje es para probar la ejecucion del pipeline.
 
 ------------------------------------------------
 
