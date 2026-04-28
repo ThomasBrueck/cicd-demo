@@ -1,3 +1,17 @@
+## Flujo Avanzado de CI/CD Pipeline (Jenkins)
+
+Este proyecto implementa un Pipeline de Integración y Despliegue Continuo (CI/CD) validado a través de Jenkins. El flujo de trabajo está compuesto documentadamente por las siguientes etapas:
+
+1. **Checkout (SCM):** Se obtiene el código fuente actualizado del repositorio Git apuntando a la rama `master`.
+2. **Build & Test:** Jenkins utiliza Maven (`mvn clean package -DskipTests`) para compilar el proyecto y producir el archivo ejecutable. Inmediatamente, la ejecución se aísla únicamente para Pruebas Unitarias empleando `mvn test -Dgroups=UnitTest`.
+3. **Análisis Estático (SonarQube):** Se ejecuta el análisis de calidad con `sonar-maven-plugin` conectado al Servidor y Plugin Oficiales de Jenkins. La etapa incluye una **Puerta de Calidad (Quality Gate)** estricta usando Webhooks (`waitForQualityGate`), pausando la ejecución y provocando el aborto/fallo automático e instantáneo del Job en caso de que exista un "Security Hotspot".
+4. **Container Security Scan (Trivy):** Tras empaquetar una imagen Docker preliminar, el binario nativo de Trivy instalado en Jenkins la escanea en búsqueda de brechas de software en el framework. Cuenta con el **Gatekeeping Estricto activado (`--exit-code 1 --severity CRITICAL`)**, el cual fue exitosamente probado deteniendo todo el contenedor y rebotando el código antes de permitir enviar versiones de librerías en riesgo ('*fail-fast*').
+5. **Deploy:** Esta etapa únicamente se despliega si las puertas de calidad anteriores validan la seguridad. Deshace instancias del proyecto anteriores y levanta el contendor aislando el puerto *8081* para proteger al anfitrión.
+6. **Limpieza e Infraestructura (`post { always }`):** Como medida integral, Jenkins retorna siempre los contenedores remanentes a un estado consistente limpiando las cachés, redes e instanciaciones atómicas olvidadas (`docker system prune -f`) y eliminando enteramente el directorio clonado post-build (`cleanWs()`). De esta manera se evita la saturación residual de la memoria local en iteraciones a largo plazo.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 # CICD-DEMO
 
