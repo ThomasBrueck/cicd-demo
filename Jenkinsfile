@@ -45,7 +45,6 @@ pipeline {
         }
         
         stage('Deploy') {
-            when { branch 'master' }
             steps {
                 sh 'docker rm -f mi-app-prod || true'
                 sh 'docker run -d --name mi-app-prod -p 80:8080 mi-app:latest'
